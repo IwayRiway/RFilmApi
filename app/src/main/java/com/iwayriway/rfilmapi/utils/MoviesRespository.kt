@@ -2,6 +2,7 @@ package com.iwayriway.rfilmapi.utils
 
 import android.util.Log
 import com.iwayriway.rfilmapi.`interface`.MovieAPI
+import com.iwayriway.rfilmapi.model.Movie
 import com.iwayriway.rfilmapi.response.GetMovieResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,18 +22,21 @@ object MoviesRespository {
         api = retrofit.create(MovieAPI::class.java)
     }
 
-    fun getPopularMovies(page: Int = 1){
+    fun getPopularMovies(page: Int = 1, onSuccess: (movies: List<Movie>) -> Unit, onError: () -> Unit){
         api.getMovies(page = page).enqueue(object : Callback<GetMovieResponse>{
             override fun onResponse(call: Call<GetMovieResponse>, response: Response<GetMovieResponse>) {
                 if(response.isSuccessful){
                     val responseBody = response.body()
                     if(responseBody != null){
-                        Log.e("dump", "Movies: ${responseBody.movies}")
+//                        Log.e("dump", "Movies: ${responseBody.movies}")
+                        onSuccess.invoke(responseBody.movies)
                     } else {
-                        Log.e("dump_err", "GAGAL BRO")
+                        onError.invoke()
+//                        Log.e("dump_err", "GAGAL BRO")
                     }
                 } else {
-                    Log.e("dump_err", "GA SUKSES")
+                    onError.invoke()
+//                    Log.e("dump_err", "GA SUKSES")
                 }
             }
 

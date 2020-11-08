@@ -1,8 +1,11 @@
 package com.iwayriway.rfilmapi.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie (
     @SerializedName("id")
     @Expose
@@ -21,4 +24,4 @@ data class Movie (
 //    @SerializedName("backdrop_path") val backdropPath: String,
 //    @SerializedName("vote_average") val rating: Float,
 //    @SerializedName("release_date") val releaseDate: String
-)
+):Parcelable

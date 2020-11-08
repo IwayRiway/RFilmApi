@@ -5,6 +5,6 @@ import com.iwayriway.rfilmapi.model.Movie
 
 data class GetMovieResponse (
     @SerializedName("page") val page: Int,
-    @SerializedName("results") val movies: List<Movie>,
+    @SerializedName("results") val movies: ArrayList<Movie>,
     @SerializedName("total_pages") val pages: Int
 )
