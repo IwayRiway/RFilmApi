@@ -9,14 +9,14 @@ import kotlinx.android.parcel.Parcelize
 data class Movie (
     @SerializedName("id")
     @Expose
-    var id:Int,
+    var id:Int?=0,
 
     @SerializedName("title")
-    var title:String ,
+    var title:String?="" ,
 
     @SerializedName("poster_path")
     @Expose
-    var poster_path:String
+    var poster_path:String?=""
 //    @SerializedName("id") val id: Long,
 //    @SerializedName("title") val title: String,
 //    @SerializedName("overview") val overview: String,
