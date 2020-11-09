@@ -13,6 +13,14 @@ interface MovieAPI {
 //    @GET("popular?api_key=4381b6c6e937d0c802d06d53cc1d9810")
 //    fun getMovies() : Call<ResponseBody>
 
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("api_key") apiKey:String = "4381b6c6e937d0c802d06d53cc1d9810",
+        @Query("page") page:Int = 1,
+        @Query("include_adult") include_adult:Boolean = false,
+        @Query("query") query:String
+    ): Call<GetMovieResponse>
+
     @GET("movie/popular")
     fun getMovies(
         @Query("api_key") apiKey:String = "4381b6c6e937d0c802d06d53cc1d9810",

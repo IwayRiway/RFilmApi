@@ -7,6 +7,9 @@ data class GetMovieDetailResponse (
     @SerializedName("title") val title: String,
     @SerializedName("tagline") val tagline: String,
     @SerializedName("runtime") val runtime: Int,
-    @SerializedName("overview") val overview: String
+    @SerializedName("vote_average") val vote_average: Double,
+    @SerializedName("overview") val overview: String,
+    @SerializedName("backdrop_path") val backdrop_path: String,
+    @SerializedName("poster_path") val poster_path: String,
 
 )
