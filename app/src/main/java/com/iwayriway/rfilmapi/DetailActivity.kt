@@ -37,6 +37,53 @@ class DetailActivity : AppCompatActivity() {
         btn_ubah.setOnClickListener {
             ubahRate("Ubah Rating " + data.title, tv_movie_id.text as String)
         }
+
+        button2.setOnClickListener {
+            delete("Hapus Rating " + data.title, tv_movie_id.text.toString().toInt())
+        }
+    }
+
+    private fun delete(s:String, movie_id: Int) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.delete_rate_movie)
+        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        val tvDesc = dialog.findViewById(R.id.tv_judul_dialog) as TextView
+        tvDesc.text = s
+
+        val btnClose = dialog.findViewById(R.id.btn_tidak) as Button
+        val btnYes = dialog.findViewById(R.id.btn_yakin) as Button
+
+        btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            deleteApi(movie_id)
+        }
+        dialog.show()
+    }
+
+    private fun deleteApi(movieId: Int) {
+        val retro = Retro().getRetroClientInstance().create(MovieAPI::class.java)
+        retro.delete(movie_id = movieId).enqueue(object : Callback<GetPostRateResponse> {
+            override fun onResponse(call: Call<GetPostRateResponse>, response: Response<GetPostRateResponse>) {
+                val response = response.body()
+                if (response!!.success) {
+                    tv_rate.text = ""
+                    Toast.makeText(this@DetailActivity, "" + response.status_message, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@DetailActivity, "" + response.status_message, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<GetPostRateResponse>, t: Throwable) {
+                Log.e("dump_err", t.message.toString())
+            }
+
+        })
     }
 
     private fun ubahRate(s: String, movie_id: String) {
@@ -64,8 +111,6 @@ class DetailActivity : AppCompatActivity() {
                 Toast.makeText(this@DetailActivity, "kosong", Toast.LENGTH_LONG).show()
             } else {
                 val query = dialog.et_rating.text.toString().toDouble()
-//                var double: Double
-//                double= query.toDouble()
                 postRate(query, etMovieId.text.toString().toInt())
             }
         }
@@ -80,7 +125,6 @@ class DetailActivity : AppCompatActivity() {
         retro.postRate(reqBody = req, movie_id = text).enqueue(object : Callback<GetPostRateResponse> {
             override fun onResponse(call: Call<GetPostRateResponse>, response: Response<GetPostRateResponse>) {
                 val response = response.body()
-                Log.e("respon", response.toString())
                 if (response!!.success) {
                     tv_rate.text = query.toString()
                     Toast.makeText(this@DetailActivity, "" + response.status_message, Toast.LENGTH_LONG).show()

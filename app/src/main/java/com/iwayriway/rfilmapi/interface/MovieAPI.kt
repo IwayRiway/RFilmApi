@@ -40,4 +40,11 @@ interface MovieAPI {
             @Query("api_key") apiKey:String = "4381b6c6e937d0c802d06d53cc1d9810",
             @Query("guest_session_id") guest_session_id:String = "58662e22e9507948b6d243e93a0baeb2"
     ): Call<GetPostRateResponse>
+
+    @DELETE("movie/{movie_id}/rating")
+    fun delete(
+            @Path("movie_id") movie_id:Int,
+            @Query("api_key") apiKey:String = "4381b6c6e937d0c802d06d53cc1d9810",
+            @Query("guest_session_id") guest_session_id:String = "58662e22e9507948b6d243e93a0baeb2"
+    ): Call<GetPostRateResponse>
 }
