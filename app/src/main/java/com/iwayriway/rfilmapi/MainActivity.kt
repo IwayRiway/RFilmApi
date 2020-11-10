@@ -6,14 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.os.Parcelable
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +21,6 @@ import com.iwayriway.rfilmapi.response.GetMovieResponse
 import com.iwayriway.rfilmapi.utils.Retro
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_movie.*
-import kotlinx.android.synthetic.main.search_movie.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,8 +71,8 @@ class MainActivity : AppCompatActivity() {
         val tvDesc = dialog.findViewById(R.id.tv_judul_dialog) as TextView
         tvDesc.text = s
 
-        val btnClose = dialog.findViewById(R.id.btn_no) as Button
-        val btnYes = dialog.findViewById(R.id.btn_yes) as Button
+        val btnClose = dialog.findViewById(R.id.btn_cancel) as Button
+        val btnYes = dialog.findViewById(R.id.btn_save) as Button
 
         btnClose.setOnClickListener {
             dialog.dismiss()
